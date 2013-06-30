@@ -1,6 +1,6 @@
 CFLAGS = -Wall -pedantic -Werror
 LFLAGS = `sdl-config --libs` -lSDL
-OBJS = main.o
+OBJS = main.o timer.o
 PROG = sdlsnake
 CXX = g++
 

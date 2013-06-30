@@ -1,5 +1,6 @@
 #include "SDL/SDL.h"
 #include <iostream>
+#include "timer.h"
 using namespace std;
 
 const int SCREEN_WIDTH = 640;
@@ -26,10 +27,11 @@ int main(int argc, char* args[]) {
   snake_segment_rectangle.w = 33;
   snake_segment_rectangle.h = 33;
 
-  // Fill the screen white
+  Timer timer;
 
   // Main loop
   while(true) {
+    timer.Start();
     SDL_FillRect(screen, &screen->clip_rect,
                  SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF));
     snake_segment_rectangle.x += 10;
@@ -37,7 +39,8 @@ int main(int argc, char* args[]) {
       break;
     SDL_BlitSurface(snake_segment_sprite, NULL, screen,
                     &snake_segment_rectangle);
-    SDL_Delay(1000/FPS);
+    if(timer.GetTicks() < 1000/FPS)
+      SDL_Delay(1000/FPS - timer.GetTicks());
     SDL_Flip(screen);
   }
 
