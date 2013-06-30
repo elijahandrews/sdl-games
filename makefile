@@ -7,7 +7,7 @@ CXX = g++
 all: $(PROG)
 
 # Creating .o files for all components
-%.o: src/%.h src/%.cpp
+%.o: src/%.cpp src/%.h
 	$(CXX) $(CFLAGS) -c -s $<
 
 # Linking and compiling the program
