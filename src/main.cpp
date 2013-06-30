@@ -38,7 +38,7 @@ int main(int argc, char* args[]) {
 
     // Clear the screen:
     SDL_FillRect(screen, &screen->clip_rect,
-                 SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF));
+                 SDL_MapRGB(screen->format, 182, 220, 156));
 
     // Move by 120 pixels / second, regardless of framerate
     snake_segment_rectangle.x += 440 * (delta_timer.GetTicks() / 1000.f);
