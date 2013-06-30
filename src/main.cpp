@@ -61,6 +61,7 @@ int main(int argc, char* args[]) {
 
   // cleanup
   SDL_FreeSurface(screen);
+  SDL_FreeSurface(snake_segment_sprite);
   SDL_Quit();
   return 0;
 }
