@@ -27,21 +27,37 @@ int main(int argc, char* args[]) {
   snake_segment_rectangle.w = 33;
   snake_segment_rectangle.h = 33;
 
-  Timer timer;
+  Timer loop_timer; // used to limit the framerate
+  Timer fps_timer; // used to measure the fps once per second
+  int frames = 0; // number of frames that have passed in the last second
+  fps_timer.Start();
 
   // Main loop
   while(true) {
-    timer.Start();
+    loop_timer.Start();
+
+    // Clear the screen:
     SDL_FillRect(screen, &screen->clip_rect,
                  SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF));
-    snake_segment_rectangle.x += 10;
+
+    snake_segment_rectangle.x += 2; // Move by 2 pixels per frame
     if (snake_segment_rectangle.x >= SCREEN_WIDTH)
-      break;
+      break; // stop when we hit a wall
     SDL_BlitSurface(snake_segment_sprite, NULL, screen,
                     &snake_segment_rectangle);
-    if(timer.GetTicks() < 1000/FPS)
-      SDL_Delay(1000/FPS - timer.GetTicks());
+
+    // Delay to keep us at 60 fps
+    if(loop_timer.GetTicks() < 1000/FPS)
+      SDL_Delay(1000/FPS - loop_timer.GetTicks());
     SDL_Flip(screen);
+
+    // Print the FPS to the command line once per second
+    frames ++;
+    if (fps_timer.GetTicks() > 1000) {
+      cout << frames / (fps_timer.GetTicks() / 1000.f) << "\n";
+      frames = 0;
+      fps_timer.Start();
+    }
   }
 
   // cleanup
