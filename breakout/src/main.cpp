@@ -11,24 +11,25 @@ int main(int argc, char* args[]) {
   // setup
   SDL_Surface *screen = NULL;
   SDL_Init(SDL_INIT_EVERYTHING);
-  SDL_WM_SetCaption("SDL Snake", "SDL Snake");
+  SDL_WM_SetCaption("SDL Breakout", "SDL Breakout");
   screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32, SDL_SWSURFACE);
 
-  // Load the snake segment and convert it to SDL's display
+  // Load the segment and convert it to SDL's display
   // format so we don't have to do it every time we blit
-  SDL_Surface *temp = SDL_LoadBMP("gfx/snake_segment.bmp");
-  SDL_Surface *snake_segment_sprite = SDL_DisplayFormat(temp);
+  SDL_Surface *temp = SDL_LoadBMP("gfx/segment.bmp");
+  SDL_Surface *segment_sprite = SDL_DisplayFormat(temp);
   SDL_FreeSurface(temp);
 
-  // Set up a rectangle for the snake sprite and its inital position
-  SDL_Rect snake_segment_rectangle;
-  snake_segment_rectangle.x = 0;
-  snake_segment_rectangle.y = 200;
-  snake_segment_rectangle.w = 33;
-  snake_segment_rectangle.h = 33;
+  // Set up a rectangle for the ball sprite and its inital position
+  SDL_Rect ball_rectangle;
+  ball_rectangle.x = 0;
+  ball_rectangle.y = 200;
+  ball_rectangle.w = 33;
+  ball_rectangle.h = 33;
 
-  int snake_vel_x = 440;
-  int snake_vel_y = 440;
+  int ball_vel_x = 440;
+  int ball_vel_y = 440;
+
 
   Timer delta_timer; // used to calculate velocity
   delta_timer.Start();
@@ -61,16 +62,16 @@ int main(int argc, char* args[]) {
     }
 
     // Move by 120 pixels / second, regardless of framerate
-    snake_segment_rectangle.x += snake_vel_x * (delta_timer.GetTicks() / 1000.f);
-    snake_segment_rectangle.y += snake_vel_y * (delta_timer.GetTicks() / 1000.f);
+    ball_rectangle.x += ball_vel_x * (delta_timer.GetTicks() / 1000.f);
+    ball_rectangle.y += ball_vel_y * (delta_timer.GetTicks() / 1000.f);
 
-    if (snake_segment_rectangle.x + snake_segment_rectangle.w >= SCREEN_WIDTH || snake_segment_rectangle.x <= 0)
-      snake_vel_x = -snake_vel_x; // change directions when we hit a wall
-    if (snake_segment_rectangle.y + snake_segment_rectangle.h >= SCREEN_HEIGHT || snake_segment_rectangle.y <= 0)
-      snake_vel_y = -snake_vel_y;
+    if (ball_rectangle.x + ball_rectangle.w >= SCREEN_WIDTH || ball_rectangle.x <= 0)
+      ball_vel_x = -ball_vel_x; // change directions when we hit a wall
+    if (ball_rectangle.y + ball_rectangle.h >= SCREEN_HEIGHT || ball_rectangle.y <= 0)
+      ball_vel_y = -ball_vel_y;
 
-    SDL_BlitSurface(snake_segment_sprite, NULL, screen,
-        &snake_segment_rectangle);
+    SDL_BlitSurface(segment_sprite, NULL, screen,
+        &ball_rectangle);
 
     delta_timer.Start();
     SDL_Flip(screen);
@@ -86,7 +87,7 @@ int main(int argc, char* args[]) {
 
   // cleanup
   SDL_FreeSurface(screen);
-  SDL_FreeSurface(snake_segment_sprite);
+  SDL_FreeSurface(segment_sprite);
   SDL_Quit();
   return 0;
 }
