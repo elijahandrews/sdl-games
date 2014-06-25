@@ -1,7 +1,7 @@
 CFLAGS = -Wall -pedantic
 LFLAGS = `sdl-config --libs` -lSDL
 OBJS = main.o timer.o
-PROG = sdlsnake
+PROG = sdlbreakout
 CXX = g++
 
 all: $(PROG)
