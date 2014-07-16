@@ -5,7 +5,7 @@ using namespace std;
 
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
-const int CELL_SIZE = 8;
+const int CELL_SIZE = 1;
 const int CELL_WIDTH = SCREEN_WIDTH / CELL_SIZE;
 const int CELL_HEIGHT = SCREEN_HEIGHT / CELL_SIZE;
 
@@ -37,18 +37,10 @@ int main(int argc, char* args[]) {
     SDL_WM_SetCaption("Game of Life", "Game of Life");
     screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, 32, SDL_SWSURFACE);
 
-    /* for (int i = 0; i < SCREEN_WIDTH / CELL_SIZE; i++) { */
-    /*     for (int j = 0; j < SCREEN_HEIGHT / CELL_SIZE; j++) { */
-    /*         tiles[i][j] = false; */
-    /*     } */
-    /* } */
-
     SDL_Event event;
     bool play = true;
     bool step = false;
     bool forceStep = false;
-
-    cout << mod(79 + 1, CELL_HEIGHT);
 
     // Main loop
     while (play) {
