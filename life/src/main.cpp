@@ -3,9 +3,9 @@
 #include <unistd.h>
 using namespace std;
 
-const int SCREEN_WIDTH = 640;
-const int SCREEN_HEIGHT = 480;
-const int CELL_SIZE = 1;
+const int SCREEN_WIDTH = 960;
+const int SCREEN_HEIGHT = 720;
+const int CELL_SIZE = 4;
 const int CELL_WIDTH = SCREEN_WIDTH / CELL_SIZE;
 const int CELL_HEIGHT = SCREEN_HEIGHT / CELL_SIZE;
 
@@ -61,14 +61,12 @@ int main(int argc, char* args[]) {
                     int neighbors = countNeighbors(i, j);
                     if (tiles[i][j]) {
                         // Alive cell
-                        if (neighbors < 2) {
-                            nextTiles[i][j] = false;
-                        } else if (neighbors > 3) {
+                        if (neighbors == 1 || neighbors == 2) {
                             nextTiles[i][j] = false;
                         }
                     } else {
                         // Dead cell
-                        if (neighbors == 3) {
+                        if (neighbors == 1) {
                             nextTiles[i][j] = true;
                         }
                     }
